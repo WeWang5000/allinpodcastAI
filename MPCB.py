@@ -111,7 +111,7 @@ def contextualized_prompt(client, params, entity):
     prompt += params["query"]
     prompt += "?"
     return prompt
-'''
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -121,20 +121,20 @@ def handle_user_input():
     user_input = request.json.get('userInput')
 
     # Process the user input in your Python code
-    s = "How important is the premium access?"
+    q = user_input
     client.apply()
     prompt = client.features([("contextualized_prompt", "calhack")], {}, params={"query": q})[0]
     import openai
     openai.organization = "org-ZsjXx3AgIXIWjxr7TGkViTsi"
     openai.api_key = "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"
-    print(openai.Completion.create(
+    answers = (openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt,
         max_tokens=1000, # The max number of tokens to generate
         temperature=1.0 # A measure of randomness
     )["choices"][0]["text"])
 
-    response = {'message': 'Received user input: {}'.format(user_input)}
+    response = {'message': 'Received user input: {}'.format(answers)}
 
     return jsonify(response)
 
@@ -155,3 +155,4 @@ print(openai.Completion.create(
     max_tokens=1000, # The max number of tokens to generate
     temperature=1.0 # A measure of randomness
 )["choices"][0]["text"])
+'''
